@@ -1,0 +1,405 @@
+/* ==================================================
+    1. Theme Variables
+================================================== */
+:root {
+    --primary-green: #3e6529;
+    --light-green: #d1ebc3;
+    --body-bg: #f8f9fa;
+    --text-color: #212529;
+}
+
+[data-bs-theme="dark"] {
+    --primary-green: #8fbc8f;
+    --light-green: #2f4f2f;
+    --body-bg: #1e1e1e;
+    --text-color: #f8f9fa;
+}
+
+/* ==================================================
+    2. Base Styles
+================================================== */
+body {
+    background-color: var(--body-bg);
+    color: var(--text-color);
+    padding-bottom: 100px; /* prevent overlap with bottom nav */
+}
+
+img {
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* ==================================================
+    3. Typography & Utilities
+================================================== */
+.text-light-green {
+    color: var(--light-green) !important;
+}
+.text-dark-green {
+    color: var(--primary-green) !important;
+}
+.bg-light-green {
+    background-color: var(--light-green) !important;
+}
+.bg-dark-green {
+    background-color: var(--primary-green) !important;
+    color: #fff !important;
+}
+.border-light-green {
+    border-color: var(--light-green) !important;
+}
+.border-dark-green {
+    border-color: var(--primary-green) !important;
+}
+
+.bg-cover {
+    background-size: cover;
+}
+.bg-center {
+    background-position: center;
+}
+.min-vh-50 {
+    min-height: 50vh;
+}
+
+@media (min-width: 767.5px) {
+    .rounded-md-4 {
+        border-radius: 1rem !important;
+    }
+}
+
+/* ==================================================
+    4. Buttons
+================================================== */
+.btn-custom,
+.btn-check:checked + .btn-custom {
+    background-color: var(--light-green);
+    border-color: var(--light-green);
+    color: var(--primary-green);
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-custom:hover,
+.btn-check:not(:checked) + .btn-custom:hover {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+    color: #fff;
+}
+
+.btn-custom:focus {
+    box-shadow: 0 0 0 0.25rem rgba(62, 101, 41, 0.25);
+}
+
+.btn-custom:active {
+    background-color: var(--primary-green) !important;
+    border-color: var(--primary-green) !important;
+    color: #fff !important;
+    filter: brightness(90%);
+}
+
+/* ==================================================
+    5. Forms
+================================================== */
+.form-control,
+.form-select {
+    border-color: var(--primary-green) !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-green) !important;
+    box-shadow: 0 0 0 0.25rem rgba(62, 101, 41, 0.25) !important;
+}
+
+.form-control::placeholder {
+    color: var(--primary-green) !important;
+    font-size: 0.95rem;
+    opacity: 1;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+}
+
+/* ==================================================
+    6. Navigation
+================================================== */
+.bottom-nav {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1030;
+    border-radius: 50rem;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.bottom-nav-container {
+    padding: 0.4rem;
+}
+
+.bottom-nav .nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 0.8rem;
+    color: var(--primary-green);
+    border-radius: 50rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.bottom-nav .nav-link:hover,
+.bottom-nav .nav-link.active {
+    background-color: var(--primary-green);
+    color: #fff;
+}
+
+.bottom-nav .nav-text {
+    display: none;
+    margin-left: 0.5rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.bottom-nav .nav-link.active .nav-text {
+    display: inline;
+}
+.bottom-nav .icon-inactive {
+    display: inline-block;
+}
+.bottom-nav .icon-active {
+    display: none;
+}
+.bottom-nav .nav-link.active .icon-inactive {
+    display: none;
+}
+.bottom-nav .nav-link.active .icon-active {
+    display: inline-block;
+}
+
+/* ==================================================
+    7. Checkout Bar
+================================================== */
+.checkout-bar {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1030;
+    min-width: 270px;
+    padding: 0.35rem 1rem;
+    border-radius: 50rem;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ==================================================
+    8. Components
+================================================== */
+.location-icon {
+    color: var(--primary-green);
+}
+.search-icon-button {
+    z-index: 100 !important;
+}
+.product-card-rating-icon {
+    color: var(--primary-green);
+}
+.product-card-img {
+    aspect-ratio: 2 / 1.3;
+    object-fit: cover;
+}
+
+.product-card-add-button {
+    position: absolute;
+    top: -25px;
+    right: 0;
+    z-index: 2;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    border: none;
+    border-radius: 50%;
+    line-height: 1;
+    color: #fff;
+    background-color: var(--primary-green);
+    transition: all 0.2s ease-in-out;
+}
+.product-card-add-button:hover,
+.product-card-add-button:active {
+    background-color: var(--light-green);
+    color: var(--primary-green);
+}
+
+.view-more-card {
+    min-width: 160px;
+    border: 2px dashed var(--primary-green);
+    background-color: #e9f7ea;
+    color: var(--primary-green);
+    transition: all 0.2s ease-in-out;
+}
+.view-more-card:hover {
+    background-color: var(--primary-green);
+    color: #fff;
+}
+
+/* ==================================================
+    9. Carousels
+================================================== */
+.product-carousel {
+    position: relative;
+}
+
+.product-carousel .swiper-slide {
+    display: flex;
+    align-items: center;
+    width: 160px;
+    height: auto;
+}
+
+.product-carousel .swiper-button-next,
+.product-carousel .swiper-button-prev {
+    color: var(--primary-green);
+    --swiper-navigation-size: 24px;
+}
+
+.top-sales-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+
+.promo-carousel .swiper-slide {
+    margin-top: 10px;
+    transition: transform 0.6s ease, margin-top 0.6s ease;
+}
+.promo-carousel .swiper-slide-active {
+    margin-top: 0;
+    z-index: 2;
+}
+
+.promo-carousel .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    opacity: 0.6;
+    transition: all 0.2s ease-in-out;
+}
+.promo-carousel .swiper-pagination-bullet-active {
+    width: 25px;
+    border-radius: 5px;
+    opacity: 1;
+}
+
+.promo-carousel .promo-text-on-image {
+    color: #fff;
+    font-weight: 700;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    z-index: 2;
+}
+
+.promo-carousel .img-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+}
+
+/* ==================================================
+    10. Pages
+================================================== */
+.product-name-fav-icon {
+    margin-top: var(--bs-gutter-y);
+    padding: 0 var(--bs-gutter-x);
+}
+
+.icon-straight-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.allpage-header {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #d5edc7;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    z-index: 1000;
+}
+.allpage-header-title {
+    margin: 0;
+    font-size: 20px;
+    color: #2c4a26;
+}
+.allpage-header-back {
+    position: absolute;
+    left: 16px;
+    font-size: 20px;
+    text-decoration: none;
+    color: white;
+}
+
+/* ==================================================
+    11. Dropdowns
+================================================== */
+.dropdown-menu {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-menu .dropdown-item {
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu .dropdown-item:focus {
+    background-color: var(--light-green);
+    color: var(--primary-green);
+}
+
+.dropdown-menu .dropdown-item.active,
+.dropdown-menu .dropdown-item:active {
+    background-color: var(--primary-green);
+    color: #fff;
+}
+
+/* ==================================================
+    12. Pagination
+================================================== */
+.pagination .page-link {
+    color: var(--primary-green);
+    border-color: var(--light-green);
+}
+
+.pagination .page-link:hover {
+    background-color: var(--light-green);
+    color: var(--primary-green);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+    color: #fff;
+    z-index: 2;
+}
