@@ -32,15 +32,17 @@
 
             {{-- Center: Search Bar (Desktop Only) --}}
             <div class="mx-4 w-50 d-none d-md-block">
-                <div class="position-relative">
-                    <input type="text" class="form-control rounded-pill pe-5 placeholder-sm"
-                        placeholder="Think your favourite food…" id="desktop-search">
-                    <button type="button"
-                        class="btn position-absolute top-50 end-0 translate-middle-y me-2 p-0 border-0 bg-transparent"
-                        style="z-index: 10;" aria-label="Search">
-                        <i class="fa-solid fa-magnifying-glass fs-5 text-dark-green me-2"></i>
-                    </button>
-                </div>
+                <form action="{{ route('products.index') }}" method="GET">
+                    <div class="position-relative">
+                        <input type="search" name="q" class="form-control rounded-pill pe-5 placeholder-sm"
+                            placeholder="Think your favourite food…" id="desktop-search" value="{{ request('q') }}">
+                        <button type="submit"
+                            class="btn position-absolute top-50 end-0 translate-middle-y me-2 p-0 border-0 bg-transparent"
+                            style="z-index: 10;" aria-label="Search">
+                            <i class="fa-solid fa-magnifying-glass fs-5 text-dark-green me-2"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
 
             {{-- Right: User --}}

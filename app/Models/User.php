@@ -23,6 +23,9 @@ class User extends Authenticatable
         'email',
         'password',
         'dob',
+        'is_admin',
+        'merchant_status',
+        'merchant_info',
     ];
 
     /**
@@ -45,6 +48,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'merchant_info' => 'array',
+            'is_admin' => 'boolean',
         ];
     }
 
@@ -56,5 +61,15 @@ class User extends Authenticatable
     public function cartItems(): HasMany
     {
         return $this->hasMany(CartItem::class);
+    }
+
+    public function isAdmin(): bool
+    {
+        return (bool) $this->is_admin;
+    }
+
+    public function isMerchant(): bool
+    {
+        return $this->merchant_status === 'approved';
     }
 }

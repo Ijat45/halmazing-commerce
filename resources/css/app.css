@@ -403,3 +403,111 @@ img {
     color: #fff;
     z-index: 2;
 }
+
+/* ==================================================
+    13. Footer
+================================================== */
+
+.footer {
+    background: #f8f9fa;
+    padding-top: 3rem;
+}
+
+.footer-title {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #3e6529;
+}
+
+.footer-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-list li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-list a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.65);
+    transition: color 0.2s ease;
+}
+
+.footer-list a:hover {
+    color: #3e6529;
+}
+
+.footer-icons {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.footer-icons img {
+    width: 55px;
+    height: 35px;
+    object-fit: contain;
+    background: #fff;
+    padding: 4px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.footer-icons-payments,
+.footer-icons-logistics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.footer-icons-social a {
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 1.7rem;
+    transition: color 0.2s ease;
+}
+
+.footer-icons-social a:hover {
+    color: #3e6529;
+}
+
+.footer-bottom {
+    margin-top: 3rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid #ddd;
+    font-size: 0.85rem;
+    color: #6c757d;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.footer-region {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer-region a {
+    color: #3e6529;
+    text-decoration: none;
+    transition: text-decoration 0.2s ease;
+}
+
+.footer-region a:hover {
+    text-decoration: underline;
+}

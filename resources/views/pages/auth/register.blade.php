@@ -29,6 +29,28 @@
                     {{-- Date of Birth --}}
                     <x-form.input type="date" name="dob" label="Please enter date of birth" required max="{{ now()->toDateString() }}" />
 
+                    {{-- Merchant Application --}}
+                    <div class="form-check my-3">
+                        <input class="form-check-input" type="checkbox" value="1" id="apply_merchant" name="apply_merchant">
+                        <label class="form-check-label small" for="apply_merchant">
+                            I want to apply to sell on this platform (Merchant account)
+                        </label>
+                    </div>
+
+                    <div id="merchant-fields" style="display: none;">
+                        <x-form.input name="business_name" label="Business name (optional)" />
+                    </div>
+
+                    {{-- Terms and Conditions Checkbox --}}
+                    <div class="form-check my-3">
+                        <input class="form-check-input" type="checkbox" value="" id="terms" name="terms" required>
+                        <label class="form-check-label small" for="terms">
+                            I agree to the
+                            <a href="{{ route('legal.terms') }}" target="_blank" class="text-decoration-none fw-semibold">Terms and Conditions</a> and
+                            <a href="{{ route('legal.privacy') }}" target="_blank" class="text-decoration-none fw-semibold">Privacy Policy</a>.
+                        </label>
+                    </div>
+
                     {{-- Submit --}}
                     <div class="d-grid my-3">
                         <button type="submit" class="btn btn-success bg-dark-green rounded-2 py-3 fw-bold">
@@ -44,6 +66,18 @@
                         </a>
                     </p>
                 </form>
+                <script>
+                    (function () {
+                        const checkbox = document.getElementById('apply_merchant');
+                        const fields = document.getElementById('merchant-fields');
+                        if (!checkbox) return;
+                        checkbox.addEventListener('change', function () {
+                            fields.style.display = checkbox.checked ? 'block' : 'none';
+                        });
+                        // On load (in case of validation errors)
+                        if (checkbox.checked) fields.style.display = 'block';
+                    })();
+                </script>
             </div>
         </div>
     </div>

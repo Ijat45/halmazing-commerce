@@ -14,17 +14,29 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+        $query = $request->query('q');
         $category = $request->query('category');
 
         $productsQuery = Product::latest();
 
+        // Search in multiple fields
+        if ($query) {
+            $productsQuery->where(function ($q) use ($query) {
+                $q->where('name', 'like', "%{$query}%")
+                    ->orWhere('description', 'like', "%{$query}%")
+                    ->orWhere('category', 'like', "%{$query}%");
+            });
+        }
+
+        // Filter by exact category if provided
         if ($category) {
             $productsQuery->where('category', $category);
         }
 
-        $products = $productsQuery->paginate(); // Paginate with 12 products per page
+        // Paginate results (12 per page)
+        $products = $productsQuery->paginate(12);
 
-        return view('pages.product.index', compact('products'));
+        return view('pages.product.index', compact('products', 'query', 'category'));
     }
 
     /**

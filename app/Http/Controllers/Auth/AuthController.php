@@ -35,6 +35,8 @@ class AuthController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'dob' => ['required', 'date', 'before:today'],
+            'apply_merchant' => ['sometimes', 'boolean'],
+            'business_name' => ['nullable', 'string', 'max:255'],
         ]);
 
         $user = User::create([
@@ -42,6 +44,8 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'dob' => $request->dob,
+            'merchant_status' => $request->boolean('apply_merchant') ? 'pending' : 'none',
+            'merchant_info' => $request->boolean('apply_merchant') ? ['business_name' => $request->business_name] : null,
         ]);
 
         Auth::login($user);
