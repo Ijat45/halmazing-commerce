@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Admin\MerchantController;
@@ -31,8 +32,9 @@ Route::middleware('web')->group(function () {
     Route::get('/terms-and-conditions', function () {return view('pages.legal.terms');})->name('legal.terms');
     Route::get('/privacy-policy', function () {return view('pages.legal.privacy');})->name('legal.privacy');
 
-    // --- Currency Management Routes ---
+    // --- Currency & Location Management Routes ---
     Route::post('/change-currency', [CurrencyController::class, 'changeCurrency'])->name('currency.change');
+    Route::post('/change-location', [LocationController::class, 'change'])->name('location.change');
     Route::get('/api/currency/current', [CurrencyController::class, 'getCurrentCurrency'])->name('currency.current');
     Route::get('/api/currency/available', [CurrencyController::class, 'getAvailableCurrencies'])->name('currency.available');
     Route::post('/api/currency/convert', [CurrencyController::class, 'convertPrice'])->name('currency.convert');

@@ -2,66 +2,62 @@
 
 namespace App\Http\Middleware;
 
-use App\Services\CurrencyService;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 
 class DetectCurrency
 {
-    protected $currencyService;
-
-    public function __construct(CurrencyService $currencyService)
-    {
-        $this->currencyService = $currencyService;
-    }
-
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        // Only perform auto-detection if no currency is set in the session at all.
-        // This respects both manual changes and previous auto-detections.
-        if ($this->shouldDetectCurrency($request)) {
-            $locationData = $this->currencyService->detectLocationAndCurrency();
-            
-            // Set the currency and location based on detection.
-            $this->currencyService->setCurrency($locationData['currency']);
-            $this->currencyService->setLocation($locationData);
-            
-            Log::info("Currency auto-detected for IP: " . $request->ip(), [
-                'country' => $locationData['country'],
-                'currency' => $locationData['currency'],
-                'api_used' => $locationData['api_used'] ?? 'unknown',
-            ]);
+        // Run this logic only if currency or location is not already set.
+        if (!Session::has('currency') || !Session::has('location_name')) {
+            $this->detectAndSetLocationData($request);
         }
 
         return $next($request);
     }
 
     /**
-     * Determine if we should detect currency for this request
+     * Detects location and currency from IP and sets session values.
      *
-     * @param Request $request
-     * @return bool
+     * @param \Illuminate\Http\Request $request
      */
-    protected function shouldDetectCurrency(Request $request): bool
+    protected function detectAndSetLocationData(Request $request)
     {
-        // If a currency is already in the session (either from a previous detection or a manual change),
-        // we don't need to detect it again.
-        if (session()->has('currency')) {
-            return false;
-        }
+        // Use a testing IP in local development if needed, otherwise get the real IP.
+        $userIp = $request->ip() === '127.0.0.1' ? '' : $request->ip();
 
-        // Skip detection for API routes, as they are stateless.
-        if ($request->is('api/*') || $request->is('webhook/*')) {
-            return false;
-        }
+        // Use the API endpoint you suggested.
+        $response = Http::get("http://ip-api.com/json/{$userIp}?fields=status,message,country,countryCode,city,lat,lon,currency");
 
-        return true;
+        if ($response->successful() && $response->json('status') === 'success') {
+            $data = $response->json();
+
+            // Set Currency if not already set
+            if (!Session::has('currency')) {
+                $currencyCode = $data['currency'] ?? config('currency.default');
+                $availableCurrencies = array_keys(config('currency.currencies', []));
+                if (in_array($currencyCode, $availableCurrencies)) {
+                    Session::put('currency', $currencyCode);
+                }
+            }
+
+            // Set Location data if not already set
+            if (!Session::has('location_name')) {
+                Session::put('latitude', $data['lat']);
+                Session::put('longitude', $data['lon']);
+                Session::put('country_code', $data['countryCode']);
+                Session::put('location_name', trim("{$data['city']}, {$data['country']}"));
+            }
+        }
     }
 }

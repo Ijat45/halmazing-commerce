@@ -183,6 +183,13 @@ img {
     display: inline-block;
 }
 
+.nav-link,
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary-green);
+}
+
+
 /* ==================================================
     7. Checkout Bar
 ================================================== */

@@ -65,6 +65,42 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Country Names
+    |--------------------------------------------------------------------------
+    |
+    | A mapping of country codes to their full names for display purposes.
+    |
+    */
+    'country_names' => [
+        // North America
+        'US' => 'United States', 'CA' => 'Canada', 'MX' => 'Mexico',
+
+        // Europe
+        'DE' => 'Germany', 'FR' => 'France', 'IT' => 'Italy', 'ES' => 'Spain',
+        'NL' => 'Netherlands', 'BE' => 'Belgium', 'AT' => 'Austria', 'PT' => 'Portugal',
+        'FI' => 'Finland', 'IE' => 'Ireland', 'GR' => 'Greece', 'LU' => 'Luxembourg',
+        'GB' => 'United Kingdom', 'CH' => 'Switzerland', 'NO' => 'Norway', 'SE' => 'Sweden',
+        'DK' => 'Denmark', 'PL' => 'Poland', 'CZ' => 'Czech Republic', 'HU' => 'Hungary',
+        'RO' => 'Romania', 'BG' => 'Bulgaria', 'HR' => 'Croatia',
+
+        // Asia Pacific
+        'JP' => 'Japan', 'CN' => 'China', 'KR' => 'South Korea', 'IN' => 'India',
+        'AU' => 'Australia', 'NZ' => 'New Zealand', 'SG' => 'Singapore', 'HK' => 'Hong Kong',
+        'TW' => 'Taiwan', 'TH' => 'Thailand', 'MY' => 'Malaysia', 'ID' => 'Indonesia',
+        'PH' => 'Philippines', 'VN' => 'Vietnam',
+
+        // Middle East & Africa
+        'AE' => 'UAE', 'SA' => 'Saudi Arabia', 'IL' => 'Israel', 'TR' => 'Turkey',
+        'ZA' => 'South Africa', 'EG' => 'Egypt', 'NG' => 'Nigeria', 'KE' => 'Kenya',
+
+        // South America
+        'BR' => 'Brazil', 'AR' => 'Argentina', 'CL' => 'Chile', 'CO' => 'Colombia',
+        'PE' => 'Peru', 'UY' => 'Uruguay', 'PY' => 'Paraguay', 'BO' => 'Bolivia',
+        'EC' => 'Ecuador', 'VE' => 'Venezuela',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Currency Information
     |--------------------------------------------------------------------------
     |

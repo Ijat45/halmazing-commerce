@@ -15,16 +15,15 @@
                 </a>
 
                 {{-- Location Selector --}}
-                <div class="dropdown d-flex align-items-center">
+                <div class="d-flex align-items-center" id="location-selector">
                     <div class="rounded-circle bg-light-green text-dark-green me-2 d-flex justify-content-center align-items-center"
                         style="width: 25px; height: 25px;">
                         <i class="fa-solid fa-location-dot"></i>
                     </div>
                     <div class="lh-1">
                         <small class="text-muted" style="font-size: 0.75rem;">Location</small>
-                        <a href="#" class="d-flex text-dark text-decoration-none dropdown-toggle lh-1"
-                            id="locationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="fw-bold" style="font-size: 0.8rem;">Kuala Lumpur</span>
+                        <a href="#" class="d-block text-dark text-decoration-none lh-1" id="location-button">
+                            <span class="fw-bold" style="font-size: 0.8rem;">{{ session('location_name', 'Set Location') }}</span>
                         </a>
                     </div>
                 </div>
@@ -91,3 +90,66 @@
         </div>
     </div>
 </header>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const locationButton = document.getElementById('location-button');
+    if (locationButton) {
+        locationButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            
+            if (!navigator.geolocation) {
+                alert('Geolocation is not supported by your browser.');
+                return;
+            }
+
+            const originalText = this.innerHTML;
+            this.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+            this.style.pointerEvents = 'none';
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    sendLocationToServer(latitude, longitude);
+                },
+                (error) => {
+                    console.error('Geolocation error:', error);
+                    alert('Unable to retrieve your location. Please ensure location services are enabled.');
+                    this.innerHTML = originalText;
+                    this.style.pointerEvents = 'auto';
+                }
+            );
+        });
+    }
+
+    function sendLocationToServer(latitude, longitude) {
+        const locationButton = document.getElementById('location-button');
+        const originalText = locationButton.innerHTML;
+
+        fetch('{{ route("location.change") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ latitude, longitude })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.reload();
+            } else {
+                throw new Error(data.message || 'Failed to set location.');
+            }
+        })
+        .catch(error => {
+            console.error('Error setting location:', error);
+            alert('There was an error setting your location.');
+            locationButton.innerHTML = originalText;
+            locationButton.style.pointerEvents = 'auto';
+        });
+    }
+});
+</script>
+@endpush

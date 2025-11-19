@@ -56,8 +56,7 @@ class AppServiceProvider extends ServiceProvider
         
         // @currencySelect - Display currency selector dropdown
         Blade::directive('currencySelect', function ($expression = '') {
-            $params = $expression ? "({$expression})" : '()';
-            return "<?php echo view('components.currency-select')->with('attributes', {$params})->render(); ?>";
+            return "<?php echo view('components.currency-select')->with('attributes', new \Illuminate\View\ComponentAttributeBag({$expression}))->render(); ?>";
         });
     }
 }
