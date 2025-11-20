@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 
@@ -28,27 +29,45 @@ class LocationController extends Controller
         Session::put('latitude', $latitude);
         Session::put('longitude', $longitude);
 
-        // --- Reverse Geocode to get Country and City ---
-        $response = Http::get("http://ip-api.com/json/?fields=status,message,country,countryCode,city,currency");
-        
-        if (!$response->successful() || $response->json('status') !== 'success') {
-            // Fallback if reverse geocoding fails
-            Session::put('location_name', 'Location Set');
-            return response()->json(['success' => true, 'message' => 'Location coordinates set.']);
+        // Use Nominatim (OpenStreetMap) for reverse geocoding
+        $nominatimUrl = 'https://nominatim.openstreetmap.org/reverse';
+        $response = Http::withHeaders([
+            'User-Agent' => 'HalmazingCommerce/1.0 (halmazing.com contact@halmazing.com)',
+            'Referer' => config('app.url', 'https://halmazing.com'),
+        ])->get($nominatimUrl, [
+            'lat' => $latitude,
+            'lon' => $longitude,
+            'format' => 'json',
+            'addressdetails' => 1,
+        ]);
+
+        if (!$response->successful() || !$response->json('address')) {
+            Log::error('Reverse geocoding failed', [
+                'latitude' => $latitude,
+                'longitude' => $longitude,
+                'response' => $response->body(),
+            ]);
+            Session::put('location_name', 'Unknown Location');
+            return response()->json([
+                'success' => false,
+                'message' => 'Unable to detect your location. Please try again later.'
+            ], 422);
         }
 
-        $data = $response->json();
-        $countryCode = $data['countryCode'];
-        $locationName = trim("{$data['city']}, {$data['country']}");
+        $address = $response->json('address');
+        $country = $address['country'] ?? '';
+        $countryCode = $address['country_code'] ?? '';
+        $city = $address['city'] ?? ($address['town'] ?? ($address['village'] ?? ''));
+        $locationName = trim(($city ? $city . ', ' : '') . $country);
 
         $countryMap = config('currency.country_currency_map', []);
-        
+
         // Update currency based on the geocoded country
-        if (array_key_exists($countryCode, $countryMap)) {
-            Session::put('currency', $countryMap[$countryCode]);
+        if ($countryCode && array_key_exists(strtoupper($countryCode), $countryMap)) {
+            Session::put('currency', $countryMap[strtoupper($countryCode)]);
         }
 
-        Session::put('country_code', $countryCode);
+        Session::put('country_code', strtoupper($countryCode));
         Session::put('location_name', $locationName);
 
         return response()->json(['success' => true, 'message' => "Location set to {$locationName}."]);
