@@ -11,7 +11,8 @@
             @endforeach
             {{-- View More Card --}}
             <div class="swiper-slide">
-                <a href="#" class="card d-flex justify-content-center align-items-center text-decoration-none h-100 text-center view-more-card">
+                <a href="{{ route('products.index', ['sort' => 'newest']) }}"
+                    class="card d-flex justify-content-center align-items-center text-decoration-none h-100 text-center view-more-card">
                     <div class="p-3">
                         <i class="fa-solid fa-circle-arrow-right fs-1"></i>
                         <p class="fw-bold mt-2 mb-0">View More</p>

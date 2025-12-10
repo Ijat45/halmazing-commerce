@@ -26,7 +26,7 @@
                     style="width: 50px; height: 50px; background-color: #e9f7ea;">
                     <i class="fa-solid fa-grip fs-3" style="color: var(--primary-green);"></i>
                 </div>
-                <span class="text-dark d-block" style="font-size: 0.8rem;">Others</span>
+                <span class="text-muted d-block" style="font-size: 0.8rem;">Others</span>
             </a>
         </div>
     </div>

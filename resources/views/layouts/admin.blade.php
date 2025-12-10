@@ -148,7 +148,7 @@
         .admin-topbar {
             background-color: #fff;
             padding: 1rem 2rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -190,7 +190,7 @@
         .admin-backdrop {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,.4);
+            background: rgba(0, 0, 0, .4);
             display: none;
             z-index: 1100;
         }
@@ -215,11 +215,8 @@
         </div>
 
         <nav class="nav-menu">
-            <a href="{{ route('admin.merchants.index') }}"
-                class="nav-link {{ request()->routeIs('admin.merchants.*') ? 'active' : '' }}">
-                <i class="fa fa-store"></i><span>Merchant Applications</span>
-            </a>
-            <a href="#" class="nav-link">
+            <a href="{{ route('merchant.products.index') }}"
+                class="nav-link {{ request()->routeIs('merchant.products.*') ? 'active' : '' }}">
                 <i class="fa fa-box"></i><span>Products</span>
             </a>
             <a href="#" class="nav-link">
@@ -277,4 +274,5 @@
 
     @stack('scripts')
 </body>
+
 </html>

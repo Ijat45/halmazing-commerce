@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Cart')
+@section('backUrl', route('pages.home.index'))
 
 @section('content')
     <div class="container my-4">
@@ -17,7 +18,8 @@
                             <div class="alert alert-info bg-light-green border-primary text-center rounded-4 py-4">
                                 <h5 class="fw-bold mb-2">🛒 Your cart is empty</h5>
                                 <p class="mb-3">Looks like you haven’t added anything yet.</p>
-                                <a href="{{ route('pages.home.index') }}" class="btn btn-success bg-dark-green fw-semibold px-4">
+                                <a href="{{ route('pages.home.index') }}"
+                                    class="btn btn-success bg-dark-green fw-semibold px-4">
                                     Start Shopping
                                 </a>
                             </div>
@@ -28,7 +30,8 @@
 
             {{-- Right Column: Order Summary --}}
             <div class="col-lg-5">
-                <x-cart.order-summary :subtotal="$subtotal" :discount-percent="$discountPercent" :discount-amount="$discountAmount" :tax-percent="$taxPercent" :tax-amount="$taxAmount"
+                <x-cart.order-summary :subtotal="$subtotal" :discount-percent="$discountPercent"
+                    :discount-amount="$discountAmount" :tax-percent="$taxPercent" :tax-amount="$taxAmount"
                     :shipping="$shipping" :total="$total" />
             </div>
         </div>

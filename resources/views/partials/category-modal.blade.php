@@ -10,8 +10,14 @@
             <div class="modal-body">
                 <div class="row text-center g-3">
                     @foreach ($allCategories ?? [] as $category)
+                        @php
+                            $isActive = false;
+                            if (isset($product) && $product->categories) {
+                                $isActive = $product->categories->contains('id', $category->id);
+                            }
+                        @endphp
                         <div class="col-4">
-                            <x-buttons.category :icon="$category->icon" :label="$category->name" />
+                            <x-buttons.category :icon="$category->icon" :label="$category->name" :isActive="$isActive" />
                         </div>
                     @endforeach
                 </div>

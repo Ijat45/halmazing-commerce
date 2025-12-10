@@ -1,4 +1,4 @@
-<header class="p-3 bg-white shadow-sm sticky-top">
+<header class="header p-3 shadow-sm sticky-top">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center">
 
@@ -22,7 +22,7 @@
                     </div>
                     <div class="lh-1">
                         <small class="text-muted" style="font-size: 0.75rem;">Location</small>
-                        <a href="#" class="d-block text-dark text-decoration-none lh-1" id="location-button">
+                        <a href="#" class="d-block text-decoration-none lh-1" id="location-button">
                             <span class="fw-bold" style="font-size: 0.8rem;">{{ session('location_name', 'Set Location') }}</span>
                         </a>
                     </div>

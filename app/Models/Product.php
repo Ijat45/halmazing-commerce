@@ -12,6 +12,25 @@ class Product extends Model
 {
     use HasFactory, SoftDeletes;
 
+    /**
+     * Get the display name for the vendor (Branch Name > Business Name > Name).
+     */
+    public function getVendorDisplayNameAttribute()
+    {
+        // 1. Try Branch Name
+        if ($this->branches->isNotEmpty()) {
+            return $this->branches->first()->name;
+        }
+
+        // 2. Try Business Name
+        if ($this->vendor && !empty($this->vendor->merchant_info['business_name'])) {
+            return $this->vendor->merchant_info['business_name'];
+        }
+
+        // 3. Fallback to Vendor Name
+        return $this->vendor->name ?? 'Unknown Vendor';
+    }
+
     protected $fillable = [
         'name',
         'slug',
@@ -42,7 +61,6 @@ class Product extends Model
         'is_top_sale',
         'is_featured',
         'vendor_id',
-        'vendor_name',
     ];
 
     /**
@@ -77,9 +95,9 @@ class Product extends Model
         if ($value) {
             return $value;
         }
-        
+
         // Generate SKU from category and ID: "SNACKS-123"
-        return $this->category ? strtoupper($this->category).'-'.$this->id : 'PROD-'.$this->id;
+        return $this->category ? strtoupper($this->category) . '-' . $this->id : 'PROD-' . $this->id;
     }
 
     /**
@@ -98,5 +116,30 @@ class Product extends Model
     public function orderItems(): HasMany
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'category_product');
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new \App\Models\Scopes\MerchantScope);
+    }
+
+    public function vendor()
+    {
+        return $this->belongsTo(User::class, 'vendor_id');
+    }
+
+    public function branches()
+    {
+        return $this->belongsToMany(Branch::class, 'branch_product');
+    }
+
+    public function halalCertification()
+    {
+        return $this->hasOne(HalalCertification::class);
     }
 }

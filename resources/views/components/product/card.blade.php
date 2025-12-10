@@ -9,7 +9,8 @@
 <div class="card border-0 shadow-sm rounded-4 h-100">
     <a href="{{ route('products.show', $product->id) }}" class="stretched-link"></a>
     <div class="position-relative">
-        <img src="{{ asset($product->image) }}" class="card-img-top rounded-4 product-card-img" alt="{{ $product->name }}">
+        <img src="{{ Str::startsWith($product->image, 'http') ? $product->image : asset('storage/' . $product->image) }}" class="card-img-top rounded-4 product-card-img"
+            alt="{{ $product->name }}">
         {{-- Rating Badge --}}
         <span class="badge bg-light-green text-dark-green position-absolute top-0 start-0 m-2 shadow-sm">
             <i class="fa-solid fa-star product-card-rating-icon"></i> {{ $formattedRating }}
@@ -34,7 +35,8 @@
         <form action="{{ route('cart.add', $product->id) }}" method="POST" class="product-card-add-form">
             @csrf
             <input type="hidden" name="quantity" value="1">
-            <button type="submit" class="btn btn-sm rounded-circle product-card-add-button m-2" aria-label="Add to cart">
+            <button type="submit" class="btn btn-sm rounded-circle product-card-add-button m-2"
+                aria-label="Add to cart">
                 <i class="fa-solid fa-plus"></i>
             </button>
         </form>
