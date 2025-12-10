@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Checkout')
+@section('backUrl', route('cart.index'))
 
 @section('content')
     <div class="container my-4">
@@ -16,7 +17,8 @@
                             {{-- Cart Items --}}
                             @foreach ($cartItems as $item)
                                 <div class="d-flex align-items-center mb-3 pb-3 border-bottom border-primary">
-                                    <img src="{{ asset($item->image) }}" alt="{{ $item->name }}" class="rounded-3 me-3"
+                                    <img src="{{ Str::startsWith($item->image, 'http') ? $item->image : asset('storage/' . $item->image) }}"
+                                        alt="{{ $item->name }}" class="rounded-3 me-3"
                                         style="width: 60px; height: 60px; object-fit: cover;">
                                     <div class="flex-grow-1">
                                         <h6 class="fw-semibold mb-1">{{ $item->name }}</h6>
@@ -70,7 +72,8 @@
 
                             <div class="mb-3">
                                 <label for="shipping_address" class="form-label fw-semibold">Address</label>
-                                <textarea class="form-control rounded-3" id="shipping_address" name="shipping_address" rows="3" required></textarea>
+                                <textarea class="form-control rounded-3" id="shipping_address" name="shipping_address"
+                                    rows="3" required></textarea>
                             </div>
 
                             <div class="row">
@@ -98,8 +101,8 @@
 
                             {{-- Cash on Delivery --}}
                             <div class="form-check mb-2">
-                                <input class="form-check-input" type="radio" name="payment_method" id="cod"
-                                    value="cod" checked>
+                                <input class="form-check-input" type="radio" name="payment_method" id="cod" value="cod"
+                                    checked>
                                 <label class="form-check-label fw-semibold" for="cod">
                                     Cash on Delivery
                                 </label>
@@ -107,8 +110,7 @@
 
                             {{-- FPX (Malaysia Online Banking) --}}
                             <div class="form-check mb-2">
-                                <input class="form-check-input" type="radio" name="payment_method" id="fpx"
-                                    value="fpx">
+                                <input class="form-check-input" type="radio" name="payment_method" id="fpx" value="fpx">
                                 <label class="form-check-label fw-semibold" for="fpx">
                                     FPX Online Banking <span class="text-muted">(Malaysia)</span>
                                 </label>
@@ -116,8 +118,8 @@
 
                             {{-- Credit/Debit Card --}}
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="payment_method" id="card"
-                                    value="card" disabled>
+                                <input class="form-check-input" type="radio" name="payment_method" id="card" value="card"
+                                    disabled>
                                 <label class="form-check-label text-muted" for="card">
                                     Credit/Debit Card (Coming Soon)
                                 </label>

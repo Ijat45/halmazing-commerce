@@ -3,7 +3,7 @@
 <div class="mt-5 mt-lg-0 p-3 border rounded-4 bg-light-green border-primary shadow-sm">
     <div class="d-flex justify-content-between mb-1">
         <div>
-            <h5 class="fw-bold text-dark mb-2">ORDER SUMMARY</h5>
+            <h5 class="fw-bold mb-2">ORDER SUMMARY</h5>
             <p class="text-muted small mb-0">{{ now()->format('d F Y') }}</p>
         </div>
         <div>

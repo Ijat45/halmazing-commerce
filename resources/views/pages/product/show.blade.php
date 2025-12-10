@@ -14,7 +14,7 @@
             <div class="row g-0">
                 {{-- Left: Product Image --}}
                 <div class="col-md-6 position-relative rounded-md-4 rounded-bottom-4 bg-cover bg-center min-vh-50"
-                    style="background-image: url('{{ asset($product->image) }}');">
+                    style="background-image: url('{{ Str::startsWith($product->image, 'http') ? $product->image : asset('storage/' . $product->image) }}');">
                     {{-- Back + Share Icons (Mobile Only) --}}
                     <div class="d-flex d-md-none position-absolute top-0 w-100 justify-content-between p-3"
                         style="z-index: 10;">
@@ -53,7 +53,7 @@
                         <div class="tab-content" id="productTabContent">
                             <div class="tab-pane fade show active" id="description-tab-pane" role="tabpanel"
                                 aria-labelledby="description-tab" tabindex="0">
-                                <p class="text-dark mb-4">{{ $product->description }}</p>
+                                <p class="text-muted mb-4">By {{ $product->vendor_display_name }}</p>
 
                                 {{-- Rating & Reviews Count --}}
                                 <x-product.rating :rating="$product->rating" />
@@ -63,7 +63,29 @@
                             </div>
                             <div class="tab-pane fade" id="halal-cert-tab-pane" role="tabpanel"
                                 aria-labelledby="halal-cert-tab" tabindex="0">
-                                <p class="text-dark mb-4">Halal certificate information will be displayed here.</p>
+                                @if($product->halalCertification)
+                                    <div class="text-center">
+                                        <div class="mb-3">
+                                            <span
+                                                class="badge {{ $product->halalCertification->expiry_date->isPast() ? 'bg-danger' : 'bg-success' }} mb-2">
+                                                {{ $product->halalCertification->expiry_date->isPast() ? 'Expired' : 'Active' }}
+                                            </span>
+                                            <p class="mb-1 fw-bold">Ref:
+                                                {{ $product->halalCertification->reference_number ?? 'N/A' }}
+                                            </p>
+                                            <p class="small text-muted mb-3">Expires:
+                                                {{ $product->halalCertification->expiry_date->format('d M Y') }}
+                                            </p>
+                                        </div>
+                                        <img src="{{ asset('storage/' . $product->halalCertification->file_path) }}"
+                                            class="img-fluid rounded border shadow-sm" alt="Halal Certificate">
+                                    </div>
+                                @else
+                                    <div class="text-center py-4 text-muted">
+                                        <i class="bi bi-shield-x display-4 mb-2 d-block"></i>
+                                        <p>No Halal Certification linked to this product.</p>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

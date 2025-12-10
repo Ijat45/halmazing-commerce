@@ -1,7 +1,19 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="light">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    <script>
+        (function () {
+            const storedTheme = localStorage.getItem('theme');
+            const getPreferredTheme = () => {
+                if (storedTheme) {
+                    return storedTheme;
+                }
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            };
+            document.documentElement.setAttribute('data-bs-theme', getPreferredTheme());
+        })();
+    </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -79,21 +91,23 @@
     @if (!request()->routeIs('pages.home.index', 'products.index', 'products.show', 'login', 'register'))
         @include('partials.header', [
             'title' => View::hasSection('title') ? trim(View::getSection('title')) : 'Page Title',
+            'backUrl' => View::hasSection('backUrl') ? trim(View::getSection('backUrl')) : null,
         ])
     @endif
 
     <main>
         @yield('content')
     </main>
-
     @if (!request()->routeIs('cart.index', 'login', 'register'))
         @include('layouts.bottom-nav')
     @endif
 
     @include('partials.category-modal')
-    @include('layouts.footer')
+    @if (!request()->routeIs('login', 'register'))
+        @include('layouts.footer')
+    @endif
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
     <!-- Swiper.js JS -->
@@ -103,7 +117,7 @@
     @yield('scripts')
 
     <!-- Custom Share Button Script -->
-    <script>
+     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const shareButton = document.getElementById("share-button");
             if (!shareButton) return;
@@ -179,5 +193,4 @@
         });
     </script>
 </body>
-
 </html>

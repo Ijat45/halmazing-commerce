@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Privacy Policy')
+@section('backUrl', route('pages.home.index'))
 
 @section('content')
     <div class="container py-5">
@@ -14,7 +15,8 @@
                         <p class="text-muted">Last updated: {{ now()->format('F d, Y') }}</p>
 
                         <p>This Privacy Policy describes how Halmazing (“we”, “our”, or “us”) collects, uses, and shares
-                            information about you when you use our website <a href="https://halmazing.com" class="text-decoration-none">halmazing.com</a>
+                            information about you when you use our website <a href="https://halmazing.com"
+                                class="text-decoration-none">halmazing.com</a>
                             and any other services we provide (collectively, the “Service”). By using our Service, you
                             consent to the practices described in this Privacy Policy.</p>
 
@@ -48,7 +50,8 @@
                             <li>To provide, maintain, and improve our Service</li>
                             <li>To personalize your experience and deliver relevant content</li>
                             <li>To process transactions and send related information</li>
-                            <li>To communicate with you, including promotional and marketing messages (you can opt out at any time)</li>
+                            <li>To communicate with you, including promotional and marketing messages (you can opt out at
+                                any time)</li>
                             <li>To detect, prevent, and address technical issues or fraudulent activity</li>
                             <li>To comply with legal obligations</li>
                         </ul>
@@ -64,10 +67,12 @@
 
                         <h2 class="mt-4 fs-5 fw-bold">4. Data Retention</h2>
                         <p>We retain personal information only for as long as necessary to fulfill the purposes outlined in
-                            this Privacy Policy, comply with legal obligations, resolve disputes, and enforce agreements.</p>
+                            this Privacy Policy, comply with legal obligations, resolve disputes, and enforce agreements.
+                        </p>
 
                         <h2 class="mt-4 fs-5 fw-bold">5. Your Rights</h2>
-                        <p>Depending on your location, you may have rights regarding your personal information, including:</p>
+                        <p>Depending on your location, you may have rights regarding your personal information, including:
+                        </p>
                         <ul>
                             <li>Accessing the information we hold about you</li>
                             <li>Correcting inaccurate or incomplete information</li>
@@ -75,7 +80,8 @@
                             <li>Objecting to or restricting processing of your data</li>
                             <li>Withdrawing consent at any time (without affecting prior processing)</li>
                         </ul>
-                        <p>To exercise these rights, please contact us via email at <strong>privacy@halmazing.com</strong>.</p>
+                        <p>To exercise these rights, please contact us via email at <strong>privacy@halmazing.com</strong>.
+                        </p>
 
                         <h2 class="mt-4 fs-5 fw-bold">6. Security of Your Data</h2>
                         <p>We implement reasonable administrative, technical, and physical measures to protect your
@@ -102,8 +108,10 @@
                             the Service constitutes acceptance of the updated policy.</p>
 
                         <h2 class="mt-4 fs-5 fw-bold">11. Contact Us</h2>
-                        <p>If you have any questions about this Privacy Policy, please contact us by email at: 
-                            <a href="mailto:privacy@halmazing.com" target="_blank" rel="noopener noreferrer">privacy@halmazing.com</a>.</p>
+                        <p>If you have any questions about this Privacy Policy, please contact us by email at:
+                            <a href="mailto:privacy@halmazing.com" target="_blank"
+                                rel="noopener noreferrer">privacy@halmazing.com</a>.
+                        </p>
                     </div>
                 </div>
             </div>

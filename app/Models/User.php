@@ -26,6 +26,7 @@ class User extends Authenticatable
         'is_admin',
         'merchant_status',
         'merchant_info',
+        'avatar',
     ];
 
     /**
@@ -61,6 +62,16 @@ class User extends Authenticatable
     public function cartItems(): HasMany
     {
         return $this->hasMany(CartItem::class);
+    }
+
+    public function branches(): HasMany
+    {
+        return $this->hasMany(Branch::class);
+    }
+
+    public function halalCertifications(): HasMany
+    {
+        return $this->hasMany(HalalCertification::class);
     }
 
     public function isAdmin(): bool

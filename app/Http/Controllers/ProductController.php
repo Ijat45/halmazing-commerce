@@ -16,8 +16,17 @@ class ProductController extends Controller
     {
         $query = $request->query('q');
         $category = $request->query('category');
+        $sort = $request->query('sort');
 
-        $productsQuery = Product::latest();
+        $productsQuery = Product::query();
+
+        // Sorting
+        if ($sort === 'top_sales') {
+            $productsQuery->where('is_top_sale', true);
+        } else {
+            // Default to newest
+            $productsQuery->latest();
+        }
 
         // Search in multiple fields
         if ($query) {
@@ -30,7 +39,9 @@ class ProductController extends Controller
 
         // Filter by exact category if provided
         if ($category) {
-            $productsQuery->where('category', $category);
+            $productsQuery->whereHas('categories', function ($q) use ($category) {
+                $q->where('name', $category);
+            });
         }
 
         // Paginate results (12 per page)

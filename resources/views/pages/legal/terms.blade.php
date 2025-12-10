@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Terms and Conditions')
+@section('backUrl', route('pages.home.index'))
 
 @section('content')
     <div class="container py-5">
@@ -66,8 +67,10 @@
                             acceptance of the updated Terms.</p>
 
                         <h2 class="mt-4 fs-5 fw-bold">10. Contact Us</h2>
-                        <p>If you have any questions about these Terms, please contact us by email at: 
-                            <a href="mailto:support@halmazing.com" target="_blank" rel="noopener noreferrer">support@halmazing.com</a>.</p>
+                        <p>If you have any questions about these Terms, please contact us by email at:
+                            <a href="mailto:support@halmazing.com" target="_blank"
+                                rel="noopener noreferrer">support@halmazing.com</a>.
+                        </p>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'All Products')
+@section('title', 'Products')
+@section('backUrl', route('pages.home.index'))
 
 @section('content')
     <div class="container my-4">
@@ -38,4 +39,5 @@
 @endsection
 
 {{-- Note: This assumes you have a component at `resources/views/components/product/card.blade.php`. --}}
-{{-- If you don't, you'll need to create it or replace `<x-product.card :product="$product" />` with your product display HTML. --}}
+{{-- If you don't, you'll need to create it or replace `<x-product.card :product="$product" />` with your product
+display HTML. --}}

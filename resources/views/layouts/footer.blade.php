@@ -19,8 +19,8 @@
                 <ul class="footer-list">
                     <li><a href="#">About Us</a></li>
                     <li><a href="#">Halmazing Careers</a></li>
-                    <li><a href="#">Policies</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="{{ route('legal.terms') }}">Terms & Conditions</a></li>
+                    <li><a href="{{ route('legal.privacy') }}">Privacy Policy</a></li>
                 </ul>
             </div>
 

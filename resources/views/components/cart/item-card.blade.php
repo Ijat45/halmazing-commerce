@@ -15,7 +15,7 @@
             {{-- Product Image --}}
             <a href="{{ route('products.show', $item->product_id) }}">
                 <div class="rounded-3 me-3 flex-shrink-0 bg-cover bg-center"
-                    style="width: 80px; height: 80px; background-image: url('{{ asset($item->image) }}');">
+                    style="width: 80px; height: 80px; background-image: url('{{ Str::startsWith($item->image, 'http') ? $item->image : asset('storage/' . $item->image) }}');">
                 </div>
             </a>
 
@@ -24,7 +24,8 @@
                 <div class="d-flex justify-content-between">
                     {{-- Left: Product Name + Price --}}
                     <div class="me-3">
-                        <a href="{{ route('products.show', $item->product_id) }}" class="text-decoration-none text-dark">
+                        <a href="{{ route('products.show', $item->product_id) }}"
+                            class="text-decoration-none">
                             <h6 class="fw-bold text-uppercase mb-1">{{ $item->name }}</h6>
                         </a>
                         <p class="text-muted small mb-2 text-truncate">

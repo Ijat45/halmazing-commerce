@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Order Successful')
+@section('backUrl', route('pages.home.index'))
 
 @section('content')
     <div class="container my-5">
@@ -9,8 +10,8 @@
                 <div class="text-center">
                     {{-- Success Icon --}}
                     <div class="mb-4">
-                        <div class="bg-success rounded-circle d-inline-flex align-items-center justify-content-center" 
-                             style="width: 100px; height: 100px;">
+                        <div class="bg-success rounded-circle d-inline-flex align-items-center justify-content-center"
+                            style="width: 100px; height: 100px;">
                             <i class="fas fa-check text-white" style="font-size: 3rem;"></i>
                         </div>
                     </div>
@@ -28,37 +29,40 @@
                             <div class="row text-start">
                                 <div class="col-12 mb-3">
                                     <div class="d-flex align-items-start">
-                                        <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center me-3" 
-                                             style="width: 40px; height: 40px; min-width: 40px;">
+                                        <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center me-3"
+                                            style="width: 40px; height: 40px; min-width: 40px;">
                                             <i class="fas fa-envelope text-white"></i>
                                         </div>
                                         <div>
                                             <h6 class="fw-semibold mb-1">Order Confirmation</h6>
-                                            <p class="text-muted mb-0 small">You'll receive an email confirmation shortly with order details.</p>
+                                            <p class="text-muted mb-0 small">You'll receive an email confirmation shortly
+                                                with order details.</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12 mb-3">
                                     <div class="d-flex align-items-start">
-                                        <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center me-3" 
-                                             style="width: 40px; height: 40px; min-width: 40px;">
+                                        <div class="bg-warning rounded-circle d-inline-flex align-items-center justify-content-center me-3"
+                                            style="width: 40px; height: 40px; min-width: 40px;">
                                             <i class="fas fa-clock text-white"></i>
                                         </div>
                                         <div>
                                             <h6 class="fw-semibold mb-1">Processing</h6>
-                                            <p class="text-muted mb-0 small">We'll prepare your order for delivery within 1-2 business days.</p>
+                                            <p class="text-muted mb-0 small">We'll prepare your order for delivery within
+                                                1-2 business days.</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="d-flex align-items-start">
-                                        <div class="bg-success rounded-circle d-inline-flex align-items-center justify-content-center me-3" 
-                                             style="width: 40px; height: 40px; min-width: 40px;">
+                                        <div class="bg-success rounded-circle d-inline-flex align-items-center justify-content-center me-3"
+                                            style="width: 40px; height: 40px; min-width: 40px;">
                                             <i class="fas fa-truck text-white"></i>
                                         </div>
                                         <div>
                                             <h6 class="fw-semibold mb-1">Delivery</h6>
-                                            <p class="text-muted mb-0 small">Your order will be delivered to your specified address within 3-5 business days.</p>
+                                            <p class="text-muted mb-0 small">Your order will be delivered to your specified
+                                                address within 3-5 business days.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -82,7 +86,7 @@
                     <div class="mt-5 pt-4 border-top">
                         <p class="text-muted">
                             <i class="fas fa-question-circle me-2"></i>
-                            Need help? Contact our support team at 
+                            Need help? Contact our support team at
                             <a href="mailto:support@halmazing.com" class="text-decoration-none">support@halmazing.com</a>
                         </p>
                     </div>

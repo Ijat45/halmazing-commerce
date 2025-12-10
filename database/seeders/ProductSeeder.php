@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductSeeder extends Seeder
@@ -218,12 +219,34 @@ class ProductSeeder extends Seeder
 
         // Create detailed seeded products
         foreach ($products as $data) {
+            // Handle Image Seeding
+            $imagePath = null;
+            if (isset($data['image'])) {
+                $sourcePath = public_path($data['image']);
+                if (file_exists($sourcePath)) {
+                    $filename = basename($data['image']);
+                    $destinationPath = 'products/' . $filename;
+
+                    // Ensure directory exists
+                    if (!Storage::disk('public')->exists('products')) {
+                        Storage::disk('public')->makeDirectory('products');
+                    }
+
+                    // Copy file to storage
+                    Storage::disk('public')->put($destinationPath, file_get_contents($sourcePath));
+
+                    // Update image path for DB
+                    $imagePath = $destinationPath;
+                }
+            }
+
             Product::create(array_merge($data, [
                 'slug' => Str::slug($data['name']),
                 'sku' => strtoupper(Str::random(8)),
                 'discounted_price' => $this->calculateDiscountedPrice($data),
                 'is_featured' => rand(0, 1),
                 'vendor_id' => rand(1, 3),
+                'image' => $imagePath, // Use the new storage path
             ]));
         }
 
